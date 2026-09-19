@@ -14,7 +14,7 @@ YELLOW='\033[93m'
 RED='\033[91m'
 RESET='\033[0m'
 
-BINARY_URL="https://github.com/rathole-org/rathole/releases/download/v0.5.0/rathole-aarch64-unknown-linux-musl.zip"
+BINARY_URL="https://github.com/rathole-org/rathole/releases/download/v0.5.0/rathole-x86_64-unknown-linux-gnu.zip"
 BINARY_NAME="rathole"
 INSTALL_PATH="/usr/local/bin/${BINARY_NAME}"
 CONFIG_FILE="/etc/rathole/config.toml"

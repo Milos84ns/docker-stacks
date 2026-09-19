@@ -1,0 +1,31 @@
+[server]
+bind_addr = "0.0.0.0:2333"
+default_token = "fallback_token"
+heartbeat_interval = 30
+ 
+[server.transport]
+type = "tcp"
+ 
+[server.transport.tcp]
+nodelay = true
+keepalive_secs = 20
+keepalive_interval = 8
+ 
+# SSH service using default token
+[server.services.my_nas_ssh]
+type = "tcp"
+bind_addr = "0.0.0.0:5202"
+# token inherited from default_token
+ 
+# Web service with custom token
+[server.services.my_web]
+type = "tcp"
+bind_addr = "0.0.0.0:8080"
+token = "web_specific_token"
+nodelay = false
+ 
+# WireGuard VPN using UDP
+[server.services.wireguard]
+type = "udp"
+bind_addr = "0.0.0.0:51820"
+token = "wg_token"
