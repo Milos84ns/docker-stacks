@@ -101,9 +101,10 @@ setup_logging() {
 configure_service() {
     echo -e "\n${BLUE}Creating systemd service configuration...${RESET}"
     
-    cat > "/etc/systemd/system/rathole.service" <<EOL
+# Ensure your service file matches this:
+cat > /etc/systemd/system/rathole.service <<EOL
 [Unit]
-Description=Rathole Tunneling Service with Enhanced Logging
+Description=Rathole Tunneling Service
 After=network.target
 
 [Service]
@@ -112,16 +113,11 @@ Restart=on-failure
 RestartSec=5s
 WorkingDirectory=/etc/rathole
 
-# Detailed logging configuration
+# Use absolute path to binary
 ExecStart=${INSTALL_PATH} --config ${CONFIG_FILE}
 
-StandardOutput=append:${STDOUT_LOG}
-StandardError=append:${STDERR_LOG}
-
-# Additional logging features
-SyslogIdentifier=rathole-enhanced
-SyslogFacility=daemon
-LimitNOFILE=65535
+StandardOutput=append:/var/log/rathole/client.log
+StandardError=append:/var/log/rathole/client-errors.log
 
 [Install]
 WantedBy=multi-user.target
