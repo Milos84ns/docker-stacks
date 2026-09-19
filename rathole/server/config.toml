@@ -1,0 +1,12 @@
+[server]
+bind_addr = "0.0.0.0:2333"
+default_token = "my_default_secret"
+ 
+[server.services.service1]
+bind_addr = "0.0.0.0:5201"
+# This service will use "my_default_secret"
+ 
+[server.services.service2]
+token = "service2_specific_token"
+bind_addr = "0.0.0.0:5202"
+# This service uses its own token

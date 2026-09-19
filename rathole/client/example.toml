@@ -1,0 +1,34 @@
+[client]
+remote_addr = "example.com:2333"
+default_token = "default_secret"
+heartbeat_timeout = 60
+retry_interval = 2
+ 
+[client.transport]
+type = "noise"
+ 
+[client.transport.tcp]
+proxy = "socks5://127.0.0.1:1080"
+nodelay = true
+keepalive_secs = 20
+keepalive_interval = 8
+ 
+[client.transport.noise]
+pattern = "Noise_NK_25519_ChaChaPoly_BLAKE2s"
+remote_public_key = "server_public_key_in_base64"
+ 
+[client.services.ssh]
+type = "tcp"
+local_addr = "127.0.0.1:22"
+nodelay = true
+ 
+[client.services.minecraft]
+type = "tcp"
+token = "minecraft_token"
+local_addr = "127.0.0.1:25565"
+retry_interval = 5
+ 
+[client.services.wireguard]
+type = "udp"
+token = "wireguard_token"
+local_addr = "127.0.0.1:51820"

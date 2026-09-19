@@ -1,0 +1,31 @@
+# /volume1/docker/rathole/docker-compose.yml
+version: '3.8'
+
+services:
+  rathole-server:
+    container_name: rathole-server
+    image: rapiz1/rathole:latest
+    
+    ports:
+      - "2333:2333"      # Control channel
+      - "5202:5202"      # Service: my_nas_ssh
+      - "8080:8080"      # Service: my_web_service
+    
+    command: ["/app/config.toml"]
+  
+    volumes:
+      # Configuration - read-only mapping
+      - /volume1/docker/rathole/server/config.toml:/app/config.toml:ro
+      
+      # Persistent data - named volume for retention
+      #- rathole-server-data:/etc/rathole/data
+      
+      # Logs - bind mount for persistent logging
+      - /volume1/docker/rathole/server/logs:/var/log/rathole
+      
+      # Certificates - separate volume for security
+ #     - /volume1/docker/rathole/certs:/etc/rathole/certs:ro
+    environment:
+      - TZ=Asia/Tokyo
+      - RUST_LOG=info,rathole=debug
+    restart: unless-stopped
